@@ -709,57 +709,39 @@
             classesElement.value = null
         })
 
-        classesElement.addEventListener("change", (event) => {
-            const files = event.target.files
+        window.addEventListener("load", function(){
 
-            if (files.length > 0) {
-                resetClassList()
+          console.log("it ran");
+          var rows = ["red","blue"];
+          const classList = document.getElementById("classList")
 
-                const nameParts = files[0].name.split(".")
+          for (let i = 0; i < rows.length; i++) {
+              rows[i] = rows[i].trim()
 
-                if (nameParts[nameParts.length - 1] === "txt") {
-                    const reader = new FileReader()
+              if (rows[i] !== "") {
+                  classes[rows[i]] = i
 
-                    reader.addEventListener("load", () => {
-                        const lines = reader.result
+                  const option = document.createElement("option")
 
-                        const rows = lines.split(/[\r\n]+/)
+                  option.value = i
+                  option.innerHTML = rows[i]
 
-                        if (rows.length > 0) {
-                            const classList = document.getElementById("classList")
+                  if (i === 0) {
+                      option.selected = true
+                      currentClass = rows[i]
+                  }
 
-                            for (let i = 0; i < rows.length; i++) {
-                                rows[i] = rows[i].trim()
+                  classList.appendChild(option)
+              }
+          }
 
-                                if (rows[i] !== "") {
-                                    classes[rows[i]] = i
+          setCurrentClass()
 
-                                    const option = document.createElement("option")
+          if (Object.keys(images).length > 0) {
+                document.getElementById("bboxes").disabled = false
+                document.getElementById("restoreBboxes").disabled = false
+          }
 
-                                    option.value = i
-                                    option.innerHTML = rows[i]
-
-                                    if (i === 0) {
-                                        option.selected = true
-                                        currentClass = rows[i]
-                                    }
-
-                                    classList.appendChild(option)
-                                }
-                            }
-
-                            setCurrentClass()
-
-                            if (Object.keys(images).length > 0) {
-                                document.getElementById("bboxes").disabled = false
-                                document.getElementById("restoreBboxes").disabled = false
-                            }
-                        }
-                    })
-
-                    reader.readAsText(files[0])
-                }
-            }
         })
     }
 
