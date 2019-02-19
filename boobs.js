@@ -712,7 +712,7 @@
         window.addEventListener("load", function(){
 
           console.log("it ran");
-          var rows = ["red","blue"];
+          var rows = ["red"];
           const classList = document.getElementById("classList")
 
           for (let i = 0; i < rows.length; i++) {
